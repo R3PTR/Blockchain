@@ -5,8 +5,22 @@ import java.util.Date;
 
 public class Transaction {
 
-    private ArrayList<Input> inputs;
-    private ArrayList<Output> outputs;
+    private ArrayList<String> inputs;
+    private ArrayList<String> outputs;
 
+    public Transaction(ArrayList<String> inputs, ArrayList<String> outputs) {
+        this.inputs = inputs;
+        this.outputs = outputs;
+    }
 
+    public String getHash() {
+        StringBuilder sb = new StringBuilder();
+        for (String in : inputs) {
+            sb.append(in);
+        }
+        for (String out : outputs) {
+            sb.append(out);
+        }
+        return Sha256.getHash(sb.toString());
+    }
 }
