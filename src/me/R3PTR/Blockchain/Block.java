@@ -23,11 +23,11 @@ public class Block {
         return transactionList;
     }
 
-    public void setNonce(int nonce) {
-        blockheader.setNonce(nonce);
-    }
-
     public int getNonce() {
         return blockheader.getNonce();
+    }
+
+    public void setNonce(int nonce) {
+        blockheader.setNonce(nonce);
     }
 }

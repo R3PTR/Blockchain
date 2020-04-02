@@ -15,10 +15,6 @@ public class BlockHeader {
         timeStemp = LocalDateTime.now();
     }
 
-    public void setNonce(int nonce) {
-        this.nonce = nonce;
-    }
-
     public String getHash() {
         return Sha256.getHash(timeStemp + previousHash + nonce + merkelTree);
     }
@@ -29,5 +25,9 @@ public class BlockHeader {
 
     public int getNonce() {
         return nonce;
+    }
+
+    public void setNonce(int nonce) {
+        this.nonce = nonce;
     }
 }

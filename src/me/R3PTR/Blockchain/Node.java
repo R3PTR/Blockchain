@@ -17,13 +17,13 @@ public class Node {
         this.nodeName = nodeName;
     }
 
-    public void addTransaction(Transaction transaction) {
-        openTransactions.add(transaction);
-    }
-
     public Node(String nodeName, List<Block> blockchain) {
         this.nodeName = nodeName;
         this.blockchain = blockchain;
+    }
+
+    public void addTransaction(Transaction transaction) {
+        openTransactions.add(transaction);
     }
 
     public void printBlockchain() {
