@@ -3,6 +3,8 @@ package me.R3PTR.Blockchain;
 import java.util.List;
 
 public class Block {
+
+
     private BlockHeader blockheader;
     private List<Transaction> transactionList;
 

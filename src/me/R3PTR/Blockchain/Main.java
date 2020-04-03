@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Main {
 
+    //Main method, creating GenesisBlock and the first Node, then waiting for input.
     public static void main(String[] args) {
         BlockHeader header = new BlockHeader("This is the Genesisblock", 0, "");
         Block genesisBlock = new Block(header, new ArrayList<>());
@@ -48,6 +49,7 @@ public class Main {
         }
     }
 
+    //Method used to generate an given amount of random Transactions.
     private static void generateNewTransactions(int amount) {
         Random random = new Random();
         for (int i1 = 0; i1 < amount; i1++) {
@@ -69,6 +71,7 @@ public class Main {
         }
     }
 
+    //Method to print the List of all Nodes.
     public static void nodeList() {
         System.out.println("NodeList:");
         for (String node : Nodes.getNodeList()) {
