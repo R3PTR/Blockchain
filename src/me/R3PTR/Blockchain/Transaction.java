@@ -1,13 +1,13 @@
 package me.R3PTR.Blockchain;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Transaction {
 
-    private ArrayList<String> inputs;
-    private ArrayList<String> outputs;
+    private List<String> inputs;
+    private List<String> outputs;
 
-    public Transaction(ArrayList<String> inputs, ArrayList<String> outputs) {
+    public Transaction(List<String> inputs, List<String> outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
     }

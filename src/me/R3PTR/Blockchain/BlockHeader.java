@@ -30,4 +30,14 @@ public class BlockHeader {
     public void setNonce(int nonce) {
         this.nonce = nonce;
     }
+
+    @Override
+    public String toString() {
+        return "BlockHeader{" +
+                "timeStemp=" + timeStemp +
+                ", previousHash='" + previousHash + '\'' +
+                ", nonce=" + nonce +
+                ", merkelTree='" + merkelTree + '\'' +
+                '}';
+    }
 }

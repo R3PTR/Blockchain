@@ -13,7 +13,7 @@ public class Node {
 
     public Node(String firstNode, String nodeName) {
         nodes.add(firstNode);
-        blockchain = Nodes.getNode(nodes.get(0)).getBlockchain();
+        blockchain = Nodes.getNode(nodes.get(0)).getBlockchain(nodeName, this);
         this.nodeName = nodeName;
     }
 
@@ -32,8 +32,16 @@ public class Node {
         }
     }
 
-    public List<Block> getBlockchain() {
+    public List<Block> getBlockchain(String name, Node node) {
+        nodes.add(name);
+        sendAllTransactions(node);
         return blockchain;
+    }
+
+    public void sendAllTransactions(Node node) {
+        for (Transaction transaction : openTransactions) {
+            node.newTransaction(transaction);
+        }
     }
 
     public void sendBlock(Block block) {
@@ -61,10 +69,12 @@ public class Node {
     public void newTransaction(Transaction transaction) {
         if (!openTransactions.contains(transaction)) {
             openTransactions.add(transaction);
+            sendTransaction(transaction);
         }
     }
 
     public void mine() {
+        System.out.println(String.format("%s: Mining a block.", nodeName));
         Random random = new Random();
         Block block = initBlock();
         while (!block.getHash().startsWith("00000")) {
@@ -72,6 +82,7 @@ public class Node {
         }
         blockchain.add(block);
         sendBlock(block);
+        System.out.println(String.format("%s: Finished mining a block.", nodeName));
     }
 
     public Block initBlock() {
@@ -84,8 +95,7 @@ public class Node {
         String merkelTree = getMerkelTree(blockTransactions);
         int nonce = random.nextInt();
         BlockHeader header = new BlockHeader(previousHash, nonce, merkelTree);
-        Block block = new Block(header, blockTransactions);
-        return block;
+        return new Block(header, blockTransactions);
     }
 
     public String getMerkelTree(List<Transaction> blockTransactions) {
@@ -93,7 +103,7 @@ public class Node {
         for (Transaction transaction : blockTransactions) {
             hashedTransactions.add(transaction.getHash());
         }
-        while (hashedTransactions.size() != 1) {
+        while (hashedTransactions.size() > 1) {
             List<String> newHashes = new ArrayList<>();
             if (hashedTransactions.size() % 2 != 0) {
                 hashedTransactions.add(hashedTransactions.get(hashedTransactions.size() - 1));
@@ -105,12 +115,18 @@ public class Node {
                 i1 += 2;
                 i2 += 2;
             }
-
+            hashedTransactions = newHashes;
         }
         return hashedTransactions.get(0);
     }
 
     public String getName() {
         return nodeName;
+    }
+
+    public void printBlockHashes() {
+        for (Block block : blockchain) {
+            System.out.println(block.getHash());
+        }
     }
 }

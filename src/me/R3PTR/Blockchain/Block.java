@@ -30,4 +30,12 @@ public class Block {
     public void setNonce(int nonce) {
         blockheader.setNonce(nonce);
     }
+
+    @Override
+    public String toString() {
+        return "Block{" +
+                "blockheader=" + blockheader.toString() +
+                ", transactionList=" + transactionList +
+                '}';
+    }
 }
